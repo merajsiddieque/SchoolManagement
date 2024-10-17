@@ -98,9 +98,9 @@ public class passwords {
         }
         return stringHashPairs;
     }
-    public static void forgot_password(String prefix){
-        Scanner sc = new Scanner(System.in);
+    public static boolean Reset_password(Scanner sc,String prefix){
         String username;
+        boolean result = true;
         System.out.println("Enter the username");
         username = sc.nextLine();
         username = prefix + username;
@@ -116,7 +116,9 @@ public class passwords {
         }
         else{
           System.out.println("Invalid username or password");
+          result = false;
         }
         sc.close();
+        return result;
     }
 }

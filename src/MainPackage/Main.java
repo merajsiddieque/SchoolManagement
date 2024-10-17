@@ -1,8 +1,8 @@
 package MainPackage;
 import java.util.Scanner;
 
+import adminPackage.admin;
 import passwordPackage.passwords;
-
 import java.lang.InterruptedException;
 public class Main {
    public static void main(String[] args) {
@@ -26,12 +26,12 @@ public class Main {
 		   		}
 		   		else
 		   		{
-		   				p = k;
+		   			p = k;
 		   		}
 	   	}
 	   switch(p) {
 	   		case 1:
-	   			//admin login
+	   			admin.login();
 	   			break;
 	   		case 2:
 	   		    //professor login
@@ -39,11 +39,9 @@ public class Main {
 	   		case 3:
 	   			//student login
 	   			break;
-	   		case 4:
-	   			//Exit
+	   		default:
 	   			System.out.println("Have a nice day! You have successfully exited the program.");
 	   			System.exit(0);
-	   			return ;
 	   }
    }
 }
