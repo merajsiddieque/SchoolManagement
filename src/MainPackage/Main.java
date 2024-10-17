@@ -1,10 +1,16 @@
 package MainPackage;
+
 import java.util.Scanner;
 
+
+import StudentPackage.student;
+import ProfessorPackage.professor;
 import passwordPackage.passwords;
 
 import java.lang.InterruptedException;
-public class Main {
+
+public class Main
+{
    public static void main(String[] args) {
 	   Scanner sc = new Scanner(System.in);
 	   System.out.println("Welcome to the portal ! continue as ");
@@ -34,10 +40,10 @@ public class Main {
 	   			//admin login
 	   			break;
 	   		case 2:
-	   		    //professor login
+//	   			ProfessorLogin();
 	   			break;
 	   		case 3:
-	   			//student login
+//	   			StudentLogin();
 	   			break;
 	   		case 4:
 	   			//Exit
@@ -46,4 +52,5 @@ public class Main {
 	   			return ;
 	   }
    }
+
 }

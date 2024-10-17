@@ -98,7 +98,7 @@ public class passwords {
         }
         return stringHashPairs;
     }
-    public static void forgot_password(String prefix){
+    public static void reset_password(String prefix){
         Scanner sc = new Scanner(System.in);
         String username;
         System.out.println("Enter the username");
