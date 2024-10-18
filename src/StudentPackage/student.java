@@ -1,12 +1,17 @@
 package StudentPackage;
 
 import java.util.Scanner;
+import SqlDB.DBConnect;
 
 import MainPackage.Main;
 
-public class student {
-
-    public static void StudentLogin() 
+public class student extends DBConnect
+{
+	private String username,pass;
+//	public  String [] get_iD_pass(){
+//		
+//	}
+    public static void StudentLogin () 
     {
         Scanner sc = new Scanner(System.in);
         String username, pass;
@@ -104,10 +109,15 @@ public class student {
 
     public static void viewSchedule() 
     {
-        System.out.println("Displaying schedule...");
+    	Scanner sc = new Scanner(System.in);
+    	
+    	System.out.println("Enter Student ID");
+    	String StdID = sc.nextLine();
+    	DBviewSchedule(StdID);
     }
 
-    public static void trackAcademicProgress() 
+
+	public static void trackAcademicProgress() 
     {
         System.out.println("Tracking academic progress...");
     }
@@ -121,5 +131,12 @@ public class student {
     {
         System.out.println("Submitting complaints...");
     }
+    
+    
+    public static void main(String[] args) 
+    {
+    	StudentLogin();
+		
+	}
     
 }
