@@ -3,6 +3,7 @@ package ProfessorPackage;
 import java.util.Scanner;
 
 import MainPackage.Main;
+import passwordPackage.passwords;
 
 public class professor 
 {
@@ -10,7 +11,6 @@ public class professor
     {
         Scanner sc = new Scanner(System.in);
         String username, pass;
-
         System.out.println("Enter your username:");
         username = sc.nextLine();
 
@@ -21,7 +21,7 @@ public class professor
 
 //        String password = "select password from passwordDatabase where password ="+ pass;
 
-        if (username.equals("user") && pass.equals("pass")) { 
+        if (passwords.signin(username, pass)) { 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
             System.out.println(" 1. Track Academic Progress \n 2. Drop Courses \n 3. Submit Complaints \n 4. Exit \n 5. Logout");

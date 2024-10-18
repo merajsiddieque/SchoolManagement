@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 // import User.user;
@@ -23,11 +24,11 @@ public class passwords {
 //     }
 
     public static boolean signUp(String username, String pass) {
-        String filePath = "C:\\Users\\kotha\\eclipse-workspace\\student_managment\\src\\passwordPackage\\passwords_Store.txt";
-        // if(passes.containsKey(username)) {
-        // 	System.out.println("The username is already taken");
-        // 	return false;
-        // }
+        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
+         if(passes.containsKey(username)) {
+         	System.out.println("The username is already taken");
+         	return false;
+         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) { // Append mode
             String hashValue = sha256(pass);
             writer.write(String.format("\"%s\" : \"%s\"", username, hashValue));
@@ -81,7 +82,7 @@ public class passwords {
     }
 
     public static HashMap<String, String> ReadStringHashPairs() {
-        String filePath = "C:\\Users\\kotha\\eclipse-workspace\\student_managment\\src\\passwordPackage\\passwords_Store.txt";
+        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
         HashMap<String, String> stringHashPairs = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -98,25 +99,37 @@ public class passwords {
         }
         return stringHashPairs;
     }
-    public static void reset_password(String prefix){
-        Scanner sc = new Scanner(System.in);
-        String username;
-        System.out.println("Enter the username");
-        username = sc.nextLine();
-        username = prefix + username;
+    public static void Rewrite() {
+        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Entry<String, String> entry : passes.entrySet()) {
+                writer.write(String.format("\"%s\" : \"%s\"", entry.getKey(), entry.getValue()));
+                writer.newLine(); // New line after each key-value pair
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Resets the password for a given user
+    public static boolean Reset_password(Scanner sc) {
+    	String username,oldPassword;
+        System.out.println("Enter the username:");
         sc.nextLine();
-        System.out.println("Enter Your old password");
-        String user_pass = sc.nextLine();
-        if(passes.get(username) != sha256(user_pass)){
+         username = sc.nextLine();
+        System.out.println("Enter your old password:");
+         oldPassword = sc.nextLine();
+        
+        if (passes.containsKey(username) && passes.get(username).equals(sha256(oldPassword))) {
             passes.remove(username);
-            System.out.println("Enter Your new password");
-            String new_pass = sc.nextLine();
-            passes.put(username,sha256(new_pass));
-            System.out.println("Succefully updated your password");
+            System.out.println("Enter your new password:");
+            String newPassword = sc.nextLine();
+            passes.put(username, sha256(newPassword));
+            Rewrite();  
+            return true;
+        } else {
+            System.out.println("Invalid username or password");
+            return false;
         }
-        else{
-          System.out.println("Invalid username or password");
-        }
-        sc.close();
     }
 }

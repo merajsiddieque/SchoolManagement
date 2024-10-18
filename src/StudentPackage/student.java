@@ -1,17 +1,12 @@
 package StudentPackage;
-
-import java.util.Scanner;
-import SqlDB.DBConnect;
-
 import MainPackage.Main;
+import SqlDB.DBConnect;
+import java.util.Scanner;
+import passwordPackage.passwords;
 
-public class student extends DBConnect
-{
-	private String username,pass;
-//	public  String [] get_iD_pass(){
-//		
-//	}
-    public static void StudentLogin () 
+public class student extends DBConnect{
+
+    public static void StudentLogin() 
     {
         Scanner sc = new Scanner(System.in);
         String username, pass;
@@ -26,7 +21,7 @@ public class student extends DBConnect
 
 //        String password = "select password from passwordDatabase where password ='" + pass + "'";
 
-        if (username.equals("user") && pass.equals("pass")) { 
+        if (passwords.signin(username, pass)){ 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
             System.out.println("\n 1. View Schedule \n 2. View Available Courses \n 3. Register For Courses");
