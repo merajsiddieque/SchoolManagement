@@ -1,10 +1,13 @@
 package MainPackage;
 import java.util.Scanner;
-
+import StudentPackage.student;
 import adminPackage.admin;
+import ProfessorPackage.professor;
 import passwordPackage.passwords;
 import java.lang.InterruptedException;
-public class Main {
+
+public class Main
+{
    public static void main(String[] args) {
 	   Scanner sc = new Scanner(System.in);
 	   System.out.println("Welcome to the portal ! continue as ");
@@ -18,7 +21,7 @@ public class Main {
 		   		{
 		   			System.out.println("Invalid choice ! try again");
 		   			try {
-		   				Thread.sleep(100);
+		   				Thread.sleep(129);
 		   				}
 		   			catch(InterruptedException ex) {
 		   				ex.printStackTrace();
@@ -31,17 +34,20 @@ public class Main {
 	   	}
 	   switch(p) {
 	   		case 1:
-	   			admin.login();
+	   			//admin
+	   			admin.login(sc);
 	   			break;
 	   		case 2:
-	   		    //professor login
+	   			//
+	   			professor.ProfessorLogin();
 	   			break;
 	   		case 3:
-	   			//student login
+	   			student.StudentLogin();
 	   			break;
 	   		default:
 	   			System.out.println("Have a nice day! You have successfully exited the program.");
 	   			System.exit(0);
 	   }
    }
+
 }

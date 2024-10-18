@@ -4,9 +4,9 @@ import java.util.Scanner;
 import MainPackage.Main;
 import passwordPackage.passwords;
 public class admin{
-   public static void login() {
+   public static void login(Scanner sc) {
 	   System.out.println("Login panel - Admin");
-	   Scanner sc = new Scanner(System.in);
+	//    Scanner sc = new Scanner(System.in);
 	   System.out.println("1)Login \n2)ResetPassword \n3)GoBack \n4)Exit");
 	   int choice_main = sc.nextInt();
 	   while(choice_main < 1 || choice_main > 4) {
@@ -24,10 +24,10 @@ public class admin{
 		   System.out.println("Enter your password");
 		   pass = sc.nextLine();
 		   //login is successful
-		   if() 
+		   if(passwords.signin(username,pass)) 
 		   {
 			   	System.out.println("You have successfully entered the admin panel");
-			   //admin managment for records and that stuff
+			    
 		   }
 		   //login is not valid
 		   else
@@ -39,7 +39,7 @@ public class admin{
 				   String s = sc.nextLine();
 				   if(s.equalsIgnoreCase("y"))
 				   {
-					   admin.login();
+					   admin.login(sc);
 					   return;
 				   }
 				   else if(s.equalsIgnoreCase("N"))
@@ -66,7 +66,7 @@ public class admin{
 	   	case 2:
 	   		boolean flag = true;
 	   		while(flag) {
-	   			if(passwords.Reset_password(sc,"ad")) {
+	   			if(passwords.Reset_password(sc)) {
 	   				System.out.println("new password is successfully updated");
 	   				flag = false;
 	   			}
@@ -74,6 +74,10 @@ public class admin{
 	   				System.out.println("The operation was not successfull");
 	   				System.out.println("Do you want to try again ! Y / N");
 	   				String YesorNo = sc.nextLine();
+					if(YesorNo.equalsIgnoreCase("n")){
+                        flag = false;
+						login(sc);
+					}
 	   			}
 	   		}
 	   		break;
