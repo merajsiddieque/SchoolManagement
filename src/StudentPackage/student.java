@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 import MainPackage.Main;
 import passwordPackage.passwords;
-
 public class student {
-    public static void StudentLogin() 
+    public static void StudentLogin(Scanner sc) 
     {
-        Scanner sc = new Scanner(System.in);
         String username, pass;
 
         System.out.println("Enter your username:");
@@ -39,7 +37,7 @@ public class student {
                 case 1:
                     viewSchedule();
                     break;
-                case 2:
+                case 2: 
                     viewAvailableCourses();
                     break;
                 case 3:

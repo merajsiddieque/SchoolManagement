@@ -7,9 +7,8 @@ import passwordPackage.passwords;
 
 public class professor 
 {
-	public static void ProfessorLogin() 
+	public static void ProfessorLogin(Scanner sc) 
     {
-        Scanner sc = new Scanner(System.in);
         String username, pass;
         System.out.println("Enter your username:");
         username = sc.nextLine();

@@ -32,12 +32,4 @@ public class DBConnect
 		}
 		
 	}
-	
-	public static void main(String[] args) 
-	{
-		DBConnect con = new DBConnect();
-		
-		con.createDataBase();
-		
-	}
 }
