@@ -24,7 +24,7 @@ public class passwords {
 //     }
 
     public static boolean signUp(String username, String pass) {
-        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
+        String filePath = "src\\passwordPackage\\passwords_Store.txt";
          if(passes.containsKey(username)) {
          	System.out.println("The username is already taken");
          	return false;
@@ -82,7 +82,7 @@ public class passwords {
     }
 
     public static HashMap<String, String> ReadStringHashPairs() {
-        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
+        String filePath = "src\\passwordPackage\\passwords_Store.txt";
         HashMap<String, String> stringHashPairs = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -100,7 +100,7 @@ public class passwords {
         return stringHashPairs;
     }
     public static void Rewrite() {
-        String filePath = "C:\\Users\\kotha\\OneDrive\\Desktop\\SchoolManagement\\src\\passwordPackage\\passwords_Store.txt";
+        String filePath = "src\\passwordPackage\\passwords_Store.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Entry<String, String> entry : passes.entrySet()) {
                 writer.write(String.format("\"%s\" : \"%s\"", entry.getKey(), entry.getValue()));

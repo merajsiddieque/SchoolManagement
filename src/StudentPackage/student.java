@@ -5,6 +5,7 @@ import java.util.Scanner;
 import passwordPackage.passwords;
 
 public class student extends DBConnect{
+	Scanner sc = new Scanner(System.in);
 
     public static void StudentLogin() 
     {
@@ -37,10 +38,10 @@ public class student extends DBConnect{
             }
             switch (funcChoice) {
                 case 1:
-                    viewSchedule();
+                    viewSchedule(username);
                     break;
                 case 2:
-                    viewAvailableCourses();
+                    viewAvailableCourses(username);
                     break;
                 case 3:
                     registerCourses();
@@ -92,9 +93,11 @@ public class student extends DBConnect{
         }
     }
 
-    public static void viewAvailableCourses()
+    public static void viewAvailableCourses(String username)
     {
-        System.out.println("Displaying available courses...");
+
+    	
+    	DBviewAvailableCourses(username);
     }
 
     public static void registerCourses() 
@@ -102,13 +105,10 @@ public class student extends DBConnect{
         System.out.println("Registering for courses...");
     }
 
-    public static void viewSchedule() 
+    public static void viewSchedule(String username) 
     {
-    	Scanner sc = new Scanner(System.in);
     	
-    	System.out.println("Enter Student ID");
-    	String StdID = sc.nextLine();
-    	DBviewSchedule(StdID);
+    	DBviewSchedule(username);
     }
 
 
@@ -128,10 +128,10 @@ public class student extends DBConnect{
     }
     
     
-    public static void main(String[] args) 
-    {
-    	StudentLogin();
-		
-	}
-    
+//    public static void main(String[] args) 
+//    {
+//    	StudentLogin();
+//		
+//	}
+//    
 }
