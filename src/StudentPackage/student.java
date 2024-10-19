@@ -44,16 +44,16 @@ public class student extends DBConnect{
                     viewAvailableCourses(username);
                     break;
                 case 3:
-                    registerCourses();
+                    registerCourses(username);
                     break;
                 case 4:
-                    trackAcademicProgress();
+                    trackAcademicProgress(username);
                     break;
                 case 5:
-                    dropCourses();
+                    dropCourses(username);
                     break;
                 case 6:
-                    submitComplaints();
+                    submitComplaints(username);
                     break;
                 case 7:
                     System.out.println("Have a nice day! You have successfully exited the program.");
@@ -100,7 +100,7 @@ public class student extends DBConnect{
     	DBviewAvailableCourses(username);
     }
 
-    public static void registerCourses() 
+    public static void registerCourses(String username) 
     {
         System.out.println("Registering for courses...");
     }
@@ -112,19 +112,26 @@ public class student extends DBConnect{
     }
 
 
-	public static void trackAcademicProgress() 
+	public static void trackAcademicProgress(String username) 
     {
-        System.out.println("Tracking academic progress...");
+		DBTrackAcademicProgress(username);
     }
 
-    public static void dropCourses() 
+    public static void dropCourses(String username) 
     {
-        System.out.println("Dropping courses...");
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the Course ID you want to Drop: ");
+    	int CourseID = sc.nextInt();
+    	
+        DBdropCourses(username,CourseID);
     }
 
-    public static void submitComplaints() 
+    public static void submitComplaints(String username) 
     {
-        System.out.println("Submitting complaints...");
+    	System.out.println("Enter your complaint description!");
+    	Scanner sc = new Scanner(System.in);
+    	String complaintDescription = sc.nextLine();
+    	DBsubmitComplaints(username,complaintDescription);
     }
     
     
