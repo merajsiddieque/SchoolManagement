@@ -92,53 +92,48 @@ public class student extends DBConnect{
             }
         }
     }
+    
+     public static void viewSchedule(String username) 
+    {
+    	
+    	StudentDB(username,1);
+    }
 
+     
     public static void viewAvailableCourses(String username)
     {
 
     	
-    	DBviewAvailableCourses(username);
+    	StudentDB(username,2);
     }
 
     public static void registerCourses(String username) 
     {
-        System.out.println("Registering for courses...");
+    	StudentDB(username,3);
     }
 
-    public static void viewSchedule(String username) 
-    {
-    	
-    	DBviewSchedule(username);
-    }
-
+   
 
 	public static void trackAcademicProgress(String username) 
     {
-		DBTrackAcademicProgress(username);
+		StudentDB(username,4);
     }
 
     public static void dropCourses(String username) 
-    {
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the Course ID you want to Drop: ");
-    	int CourseID = sc.nextInt();
-    	
-        DBdropCourses(username,CourseID);
+    {	
+    	StudentDB(username,5);
     }
 
     public static void submitComplaints(String username) 
     {
-    	System.out.println("Enter your complaint description!");
-    	Scanner sc = new Scanner(System.in);
-    	String complaintDescription = sc.nextLine();
-    	DBsubmitComplaints(username,complaintDescription);
+    	StudentDB(username,6);
     }
     
     
-//    public static void main(String[] args) 
-//    {
-//    	StudentLogin();
-//		
-//	}
-//    
+    public static void main(String[] args) 
+    {
+    	StudentLogin();
+		
+	}
+    
 }

@@ -1,34 +1,33 @@
 package ProfessorPackage;
 
 import java.util.Scanner;
+import SqlDB.DBConnect;
 
 import MainPackage.Main;
 import passwordPackage.passwords;
 
-public class professor 
+public class professor extends DBConnect
 {
-	public static void ProfessorLogin() 
+	public static void ProfessorLogin () 
     {
         Scanner sc = new Scanner(System.in);
         String username, pass;
         System.out.println("Enter your username:");
         username = sc.nextLine();
 
-        String id = "select id from passwordDatabase where id =" + username;
 
         System.out.println("Enter your password:");
         pass = sc.nextLine();
 
-//        String password = "select password from passwordDatabase where password ="+ pass;
 
         if (passwords.signin(username, pass)) { 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
-            System.out.println(" 1. Track Academic Progress \n 2. Drop Courses \n 3. Submit Complaints \n 4. Exit \n 5. Logout");
+            System.out.println(" 1. View Schedule \n 2. Manage Courses \n 3. View Enrolled Students \n 4. Exit \n 5. Logout");
 
             int funcChoice = sc.nextInt();
             
-            while(funcChoice < 1 || funcChoice > 8) {
+            while(funcChoice < 1 || funcChoice > 5) {
             	System.out.println("Invalid choice try again");
                 System.out.println(" 1. View Schedule \n 2. Manage Courses \n 3. View Enrolled Students \n 4. Exit \n 5. Logout");
             	int temp_choice = sc.nextInt();
@@ -87,18 +86,18 @@ public class professor
 	
 	public static void manageCourses() 
 	{
-		System.out.println("manage couses ....");
+		 professorDB(2);
 		
 	}
 	
 	 public static void viewSchedule() 
 	    {
-	        System.out.println("Displaying schedule...");
+		 professorDB(1);
 	    }
 
 	public static void viewEnrolledStudents() 
 	{
-		System.out.println("enrolledstudent ....");
+		 professorDB(3);
 		
 	}
 	
