@@ -1,5 +1,6 @@
 package SqlDB;
 
+import adminManagmentPackage.ConnDs;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,31 +8,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import MainPackage.Main;
-
 public class DBConnect 
 {
 
-		public static void StudentDB(String username,int x)
+		public static void StudentDB(String username,int x,Scanner sc)
 	    {
 		try
 		{
-			String url = "jdbc:mysql://localhost:3306/ums";
-			String userName = "root";
-			String password = "a!am";
-			
-			
-			Connection conn = DriverManager.getConnection(url,userName,password);
-			
-			Scanner sc = new Scanner(System.in);
-			
+			Connection conn = DriverManager.getConnection(ConnDs.url,ConnDs.userName,ConnDs.password);
 			switch (x) 
 			{
             case 1:
-                String query = "SELECT C.Title, C.Timings FROM Enrollments E JOIN Courses C ON E.CourseID = C.CourseID WHERE E.StudentID = ?";
+			//viewSchedule
+            String query = "SELECT C.Title, C.Timings FROM Enrollments E JOIN Courses C ON E.CourseID = C.CourseID WHERE E.StudentID = ?";
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(1, username);
-			
 			ResultSet rs = pstm.executeQuery();
 			System.out.println("      Timings \t\t\t\t Courses\n");
 			while(rs.next())
@@ -41,6 +32,7 @@ public class DBConnect
 			}
                 break;
             case 2:
+			//courseview
             	String query1 = "SELECT CourseID, CourseCode, ProfessorID, Credits, Prerequisites, Timings, Title FROM Courses WHERE Semester = (SELECT CurrentSemester FROM Students WHERE StudentID = ?)";
 				PreparedStatement pstm1 = conn.prepareStatement(query1);
 				pstm1.setString(1, username);
@@ -49,7 +41,6 @@ public class DBConnect
 				System.out.println("   CourseID \t CourseCode \t ProfessorID \t Credits \t Prerequisites \t    Timings \t\t\t Title\n");
 				while(rs1.next())
 				{
-					
 					System.out.println("------"+rs1.getInt(1)+"-------------"+rs1.getString(2)+"-------------"+rs1.getInt(3)+"--------------"+rs1.getInt(4)+"---------------"+rs1.getString(5)+"--------"+rs1.getString(6)+"---------"+rs1.getString(7));
 				}
                 break;
@@ -71,6 +62,7 @@ public class DBConnect
                 break;
                 
             case 5:
+			//drop course
             	System.out.println("Enter the Course ID you want to Drop: ");
             	int CourseID = sc.nextInt();
             	String query4 = "DELETE FROM Enrollments WHERE StudentID = ? AND CourseID = ?";
@@ -82,6 +74,7 @@ public class DBConnect
                 break;
                 
             case 6:
+			//complaint
             	System.out.println("Enter your complaint description!");
             	String complaintDescription = sc.nextLine();
             	
@@ -100,29 +93,18 @@ public class DBConnect
 			
 			}
 			conn.close();
-			
 		 }
 		
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
-		
 	   }
-		
-		
-		public static void professorDB(int x)
+		public static void professorDB(int x,Scanner sc)
 		{
 			try
-			{
-				String url = "jdbc:mysql://localhost:3306/ums";
-				String userName = "root";
-				String password = "a!am";
-				
-				Scanner sc = new Scanner(System.in);
-				
-				Connection conn = DriverManager.getConnection(url,userName,password);
-				
+			{			
+				Connection conn = DriverManager.getConnection(ConnDs.url,ConnDs.userName,ConnDs.password);
 				switch (x) 
 				{
 	            case 1:
@@ -145,9 +127,7 @@ public class DBConnect
 				
 	            case 2:
 //	            	condition
-	            	
 	            	break;
-				
 	            case 3:
 	            	System.out.println("Enter Course ID ");
 	       		 int CourseID = sc.nextInt();
@@ -181,14 +161,4 @@ public class DBConnect
 			}
 			
 		}
-		
-
-		
-		
-		public static void main(String[] args) {
-			professorDB(3);
-		}
-		
-		
-	
 }

@@ -1,12 +1,12 @@
 package MainPackage;
-import java.util.Scanner;
+import ProfessorPackage.professor;
 import StudentPackage.student;
 import adminPackage.admin;
-import ProfessorPackage.professor;
-import java.lang.InterruptedException;
+import java.util.Scanner;
+import Interface.login;
 public class Main
 {
-public static void main(String[] args)  {
+public static void main(String[] args){
 	   Scanner sc = new Scanner(System.in);
 	   System.out.println("Welcome to the portal ! continue as ");
 	   int p = -1;
@@ -32,13 +32,20 @@ public static void main(String[] args)  {
 	   	}
 	   switch(p) {
 	   		case 1:
-	   			admin.login(sc);
+	   			
+	   			admin adminstrator = new admin();
+	   			adminstrator.login_method(sc);
+	   			adminstrator = null;
 	   			break;
 	   		case 2:
-	   			professor.ProfessorLogin(sc);
+	   			professor professors = new professor();
+	   			professors.login_method(sc);
+	   			professors = null;
 	   			break;
 	   		case 3:
-	   			student.StudentLogin(sc);
+	   			student students = new student();
+	   			students.login_method(sc);
+	   			students = null;
 	   			break;
 	   		default:
 	   			System.out.println("Have a nice day! You have successfully exited the program.");

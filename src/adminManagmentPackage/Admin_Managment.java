@@ -67,7 +67,9 @@ public class Admin_Managment
         	case 5:
         		//Go back
         		Mc = null;
-        		admin.login(Sc);
+        		admin admiin = new admin();
+        		admiin.login_method(Sc);
+        		admiin = null;
         		break;
         	case 6:
         		//Log Out

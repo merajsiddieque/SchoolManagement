@@ -2,10 +2,13 @@ package StudentPackage;
 import MainPackage.Main;
 import SqlDB.DBConnect;
 import java.util.Scanner;
+
+import Interface.login;
+import Interface.view_courses;
 import passwordPackage.passwords;
 
-public class student extends DBConnect{
-    public static void StudentLogin(Scanner sc) 
+public class student extends DBConnect implements login{
+    public  void login_method(Scanner sc) 
     {
         String username, pass;
 
@@ -32,16 +35,16 @@ public class student extends DBConnect{
             switch (funcChoice) 
             {
                 case 1:
-                    viewSchedule(sc);
+                    viewSchedule(username,sc);
                     break;
                 case 2:
-                    viewAvailableCourses(username);
+                    view_course(username,sc);
                     break;
                 case 3:
-                    registerCourses(username);
+                    registerCourses(username,sc);
                     break;
                 case 4:
-                    trackAcademicProgress(username);
+                    trackAcademicProgress(username,sc);
                     break;
                 case 5:
                     dropCourses(username,sc);
@@ -67,7 +70,7 @@ public class student extends DBConnect{
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    StudentLogin(sc);
+                    login_method(sc);
                     return;
                 }
                 else if (retryChoice.equalsIgnoreCase("N"))
@@ -92,60 +95,28 @@ public class student extends DBConnect{
             }
         }
     }
-    
-     public static void viewSchedule(String username) 
+    public static void view_course(String username,Scanner sc)
     {
-    	
-    	StudentDB(username,1);
+    	StudentDB(username,2,sc);
     }
-
-     
-    public static void viewAvailableCourses(String username)
+    public static void registerCourses(String username,Scanner sc) 
     {
-
-    	
-    	DBviewAvailableCourses(username);
+        StudentDB(username,3,sc);
     }
-
-    public static void registerCourses(String username) 
+    public static void viewSchedule(String username,Scanner sc) 
     {
-        System.out.println("Registering for courses...");
+    	StudentDB(username,1, sc);
     }
-
-    public static void viewSchedule(String username) 
+	public static void trackAcademicProgress(String username,Scanner sc) 
     {
-    	
-    	DBviewSchedule(username);
+		StudentDB(username,4,sc);
     }
-
-   
-
-	public static void trackAcademicProgress(String username) 
+    public static void dropCourses(String username,Scanner sc) 
     {
-		StudentDB(username,4);
-    }
-
-    public static void dropCourses(String username) 
-    {
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the Course ID you want to Drop: ");
-    	int CourseID = sc.nextInt();
-    	
-        DBdropCourses(username,CourseID);
+        StudentDB(username,5,sc);
     }
     public static void submitComplaints(String username,Scanner sc) 
     {
-    	System.out.println("Enter your complaint description!");
-    	Scanner sc = new Scanner(System.in);
-    	String complaintDescription = sc.nextLine();
-    	DBsubmitComplaints(username,complaintDescription);
-    }
-    
-    
-//    public static void main(String[] args) 
-//    {
-//    	StudentLogin();
-//		
-//	}
-//    
+    	StudentDB(username,6,sc);
+    }    
 }

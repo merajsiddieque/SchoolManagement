@@ -1,20 +1,18 @@
 package ProfessorPackage;
 
-import java.util.Scanner;
-import SqlDB.DBConnect;
-
 import MainPackage.Main;
+import SqlDB.DBConnect;
+import java.util.Scanner;
 import passwordPackage.passwords;
+import Interface.login;
 
-public class professor extends DBConnect
+public class professor extends DBConnect implements login
 {
-	public static void ProfessorLogin() 
+	public  void login_method(Scanner sc) 
     {
         String username, pass;
         System.out.println("Enter your username:");
         username = sc.nextLine();
-
-
         System.out.println("Enter your password:");
         pass = sc.nextLine();
 
@@ -60,7 +58,7 @@ public class professor extends DBConnect
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    ProfessorLogin(sc);
+                    login_method(sc);
                     return;
                 } else if (retryChoice.equalsIgnoreCase("N")) {
                     System.out.println(" 1. Main page \n 2. Exit");
@@ -83,15 +81,12 @@ public class professor extends DBConnect
     }
 	public static void manageCourses() 
 	{
-		System.out.println("manage couses ....");
-		
+		System.out.println("manage couses ....");	
 	}
-	
-	 public static void viewSchedule() 
-	    {
+	public static void viewSchedule() 
+	{
 	        System.out.println("Displaying schedule...");
-	    }
-
+	}
 	public static void viewEnrolledStudents() 
 	{
 		System.out.println("enrolledstudent ....");

@@ -1,5 +1,5 @@
 package Interface;
-
-public interface login {
-     void login_method();
+import java.util.Scanner;
+public interface login{
+     void login_method(Scanner Sc);
 }
