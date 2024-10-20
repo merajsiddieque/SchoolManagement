@@ -4,10 +4,9 @@ import StudentPackage.student;
 import adminPackage.admin;
 import ProfessorPackage.professor;
 import java.lang.InterruptedException;
-
 public class Main
 {
-   public static void main(String[] args)  {
+public static void main(String[] args)  {
 	   Scanner sc = new Scanner(System.in);
 	   System.out.println("Welcome to the portal ! continue as ");
 	   int p = -1;
@@ -45,6 +44,7 @@ public class Main
 	   			System.out.println("Have a nice day! You have successfully exited the program.");
 	   			System.exit(0);
 	   }
+	   sc.close();
    }
 
 }

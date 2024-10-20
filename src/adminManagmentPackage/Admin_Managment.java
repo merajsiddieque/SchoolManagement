@@ -6,17 +6,17 @@ public class Admin_Managment
 {
 	// view_courses and delete_courses and add_courses and assign_professors and update_student_records
     public static void admin_manage(Scanner Sc){
-        System.out.println("1)Manage Courses \n2)Assign Professors \n3)Update Student Records \n4)Go Back \n5)Log Out \n6)Exit");
+        System.out.println("1)Manage Courses \n2)Assign Professors \n3)Update Student Records \n4)ManageComplaints \n5)Go Back \n6)Log Out \n7)Exit");
         int choice;
         choice = Sc.nextInt();
-        while(choice < 1 || choice > 6) {
+        while(choice < 1 || choice > 7) {
         	System.out.println("Invalid choice Try again !");
-            System.out.println("1)Manage Courses \n2)Assign Professors \n3)Update Student Records \n4)Go Back \n5)Log Out \n6)Exit");
+            System.out.println("1)Manage Courses \n2)Assign Professors \n3)Update Student Records \n4)ManageComplaints \n5)Go Back \n6)Log Out \n7)Exit");
             int p;
             p = Sc.nextInt();
             choice = p;
         }
-        ManageCourses Mc;
+        ManageCourses Mc = null;
         switch(choice){
         	case 1:
         		Mc = new ManageCourses();
@@ -62,20 +62,25 @@ public class Admin_Managment
         		UpdateStudentRecords.UpdateStuReco(Sc);
         		break;
         	case 4:
+        		//ManageTheComplaints
+        		ManageComplaints.manage_complaints(Sc);
+        	case 5:
         		//Go back
         		Mc = null;
         		admin.login(Sc);
         		break;
-        	case 5:
+        	case 6:
         		//Log Out
         		Mc = null;
         		Main.main(null);
         		break;
-        	case 6:
+        	case 7:
         		//Exit
         		System.out.println("You have Successfully exited the program");
         		System.exit(0);
         		break;
         }
+        Mc = null;
+        admin_manage(Sc);
     }
 }

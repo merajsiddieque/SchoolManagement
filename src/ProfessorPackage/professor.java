@@ -17,9 +17,7 @@ public class professor
 
         System.out.println("Enter your password:");
         pass = sc.nextLine();
-
 //        String password = "select password from passwordDatabase where password ="+ pass;
-
         if (passwords.signin(username, pass)) { 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
@@ -81,23 +79,16 @@ public class professor
             }
         }
     }
-
-
-	
 	public static void manageCourses() 
 	{
 		System.out.println("manage couses ....");
-		
 	}
-	 public static void viewSchedule() 
-	    {
+	public static void viewSchedule() 
+	{
 	        System.out.println("Displaying schedule...");
-	    }
+	}
 	public static void viewEnrolledStudents() 
 	{
-		System.out.println("enrolledstudent ....");
-		
+		System.out.println("enrolledstudent ....");	
 	}
-	
-
 }
