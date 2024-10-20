@@ -20,6 +20,7 @@ public class student extends DBConnect implements login{
         { 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
+           while(true) {
             System.out.println("\n 1. View Schedule \n 2. View Available Courses \n 3. Register For Courses");
             System.out.println(" 4. Track Academic Progress \n 5. Drop Courses \n 6. Submit Complaints \n 7. Exit \n 8. Logout");
 
@@ -60,6 +61,7 @@ public class student extends DBConnect implements login{
                 	Main.main(null);
                 	break;
             }
+         }
         }
         else
         {

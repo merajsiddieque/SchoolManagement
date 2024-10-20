@@ -3,7 +3,6 @@ import ProfessorPackage.professor;
 import StudentPackage.student;
 import adminPackage.admin;
 import java.util.Scanner;
-import Interface.login;
 public class Main
 {
 public static void main(String[] args){
@@ -34,16 +33,19 @@ public static void main(String[] args){
 	   		case 1:
 	   			
 	   			admin adminstrator = new admin();
+	   			sc.nextLine();
 	   			adminstrator.login_method(sc);
 	   			adminstrator = null;
 	   			break;
 	   		case 2:
 	   			professor professors = new professor();
+	   			sc.nextLine();
 	   			professors.login_method(sc);
 	   			professors = null;
 	   			break;
 	   		case 3:
 	   			student students = new student();
+	   			sc.nextLine();
 	   			students.login_method(sc);
 	   			students = null;
 	   			break;

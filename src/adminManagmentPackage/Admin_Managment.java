@@ -31,12 +31,18 @@ public class Admin_Managment
         		switch(choice_Mc) {
         			case 1:
         				Mc.view_course();
+        				Mc = null;
+        				admin_manage(Sc);
         				break;
         			case 2:
         				Mc.delete_course(Sc);
+        				Mc = null;
+        				admin_manage(Sc);
         				break;
         			case 3:
         				Mc.add_course(Sc);
+        				Mc = null;
+        				admin_manage(Sc);
         				break;
         			case 4:
         				//Go back
@@ -56,14 +62,17 @@ public class Admin_Managment
         	case 2:
         		//Assign Professors
         		AssignProfessors.Assign_Professors(Sc);
+        		admin_manage(Sc);
         		break;
         	case 3:
         		//Update student Records
         		UpdateStudentRecords.UpdateStuReco(Sc);
+        		admin_manage(Sc);
         		break;
         	case 4:
         		//ManageTheComplaints
         		ManageComplaints.manage_complaints(Sc);
+        		admin_manage(Sc);
         	case 5:
         		//Go back
         		Mc = null;
@@ -83,6 +92,5 @@ public class Admin_Managment
         		break;
         }
         Mc = null;
-        admin_manage(Sc);
     }
 }

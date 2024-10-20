@@ -8,9 +8,10 @@ import Interface.login;
 
 public class professor extends DBConnect implements login
 {
-	public  void login_method(Scanner sc) 
+	public void login_method(Scanner sc) 
     {
         String username, pass;
+//        sc.nextLine();
         System.out.println("Enter your username:");
         username = sc.nextLine();
         System.out.println("Enter your password:");
@@ -50,17 +51,19 @@ public class professor extends DBConnect implements login
                 	Main.main(null);
                 	break;
             }
-        } else {
+        }
+        else
+        {
         	while (true) 
             {
                 System.out.println("Invalid login! Do you want to try again? (Y/N)");
                 String retryChoice = sc.nextLine();
-
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
                     login_method(sc);
                     return;
-                } else if (retryChoice.equalsIgnoreCase("N")) {
+                }
+                else if (retryChoice.equalsIgnoreCase("N")) {
                     System.out.println(" 1. Main page \n 2. Exit");
                     int choice = sc.nextInt();
                     if (choice == 1) 
@@ -77,7 +80,7 @@ public class professor extends DBConnect implements login
                     System.out.println("Invalid choice! Please enter Y or N.");
                 }
             }
-        }
+         }
     }
 	public static void manageCourses() 
 	{
