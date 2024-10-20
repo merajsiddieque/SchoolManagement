@@ -8,9 +8,8 @@ import passwordPackage.passwords;
 
 public class professor extends DBConnect
 {
-	public static void ProfessorLogin () 
+	public static void ProfessorLogin() 
     {
-        Scanner sc = new Scanner(System.in);
         String username, pass;
         System.out.println("Enter your username:");
         username = sc.nextLine();
@@ -19,6 +18,7 @@ public class professor extends DBConnect
         System.out.println("Enter your password:");
         pass = sc.nextLine();
 
+//        String password = "select password from passwordDatabase where password ="+ pass;
 
         if (passwords.signin(username, pass)) { 
             System.out.println("You have successfully entered the Student Panel");
@@ -60,7 +60,7 @@ public class professor extends DBConnect
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    ProfessorLogin();
+                    ProfessorLogin(sc);
                     return;
                 } else if (retryChoice.equalsIgnoreCase("N")) {
                     System.out.println(" 1. Main page \n 2. Exit");
@@ -81,25 +81,20 @@ public class professor extends DBConnect
             }
         }
     }
-
-
-	
 	public static void manageCourses() 
 	{
-		 professorDB(2);
+		System.out.println("manage couses ....");
 		
 	}
 	
 	 public static void viewSchedule() 
 	    {
-		 professorDB(1);
+	        System.out.println("Displaying schedule...");
 	    }
 
 	public static void viewEnrolledStudents() 
 	{
-		 professorDB(3);
+		System.out.println("enrolledstudent ....");
 		
 	}
-	
-
 }

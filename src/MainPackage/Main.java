@@ -3,12 +3,10 @@ import java.util.Scanner;
 import StudentPackage.student;
 import adminPackage.admin;
 import ProfessorPackage.professor;
-import passwordPackage.passwords;
 import java.lang.InterruptedException;
-
 public class Main
 {
-   public static void main(String[] args) {
+public static void main(String[] args)  {
 	   Scanner sc = new Scanner(System.in);
 	   System.out.println("Welcome to the portal ! continue as ");
 	   int p = -1;
@@ -34,20 +32,19 @@ public class Main
 	   	}
 	   switch(p) {
 	   		case 1:
-	   			//admin
 	   			admin.login(sc);
 	   			break;
 	   		case 2:
-	   			//
-	   			professor.ProfessorLogin();
+	   			professor.ProfessorLogin(sc);
 	   			break;
 	   		case 3:
-	   			student.StudentLogin();
+	   			student.StudentLogin(sc);
 	   			break;
 	   		default:
 	   			System.out.println("Have a nice day! You have successfully exited the program.");
 	   			System.exit(0);
 	   }
+	   sc.close();
    }
 
 }

@@ -1,12 +1,11 @@
 package adminPackage;
 import java.util.Scanner;
-
 import MainPackage.Main;
+import adminManagmentPackage.Admin_Managment;
 import passwordPackage.passwords;
 public class admin{
    public static void login(Scanner sc) {
 	   System.out.println("Login panel - Admin");
-	//    Scanner sc = new Scanner(System.in);
 	   System.out.println("1)Login \n2)ResetPassword \n3)GoBack \n4)Exit");
 	   int choice_main = sc.nextInt();
 	   while(choice_main < 1 || choice_main > 4) {
@@ -26,10 +25,8 @@ public class admin{
 		   //login is successful
 		   if(passwords.signin(username,pass)) 
 		   {
-			   	System.out.println("You have successfully entered the admin panel");
-			    
+			    Admin_Managment.admin_manage(sc);
 		   }
-		   //login is not valid
 		   else
 		   {
 			   System.out.println("Invalid password or username");
@@ -88,6 +85,5 @@ public class admin{
 	   		System.out.println("You have exited the program successfully");
 	   		System.exit(0);
 	   }
-		sc.close();
    }
 }

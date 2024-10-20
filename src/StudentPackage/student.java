@@ -5,40 +5,34 @@ import java.util.Scanner;
 import passwordPackage.passwords;
 
 public class student extends DBConnect{
-	Scanner sc = new Scanner(System.in);
-
-    public static void StudentLogin() 
+    public static void StudentLogin(Scanner sc) 
     {
-        Scanner sc = new Scanner(System.in);
         String username, pass;
 
         System.out.println("Enter your username:");
         username = sc.nextLine();
-
-//        String id = "select id from passwordDatabase where id ='" + username + "'";
-
         System.out.println("Enter your password:");
         pass = sc.nextLine();
-
-//        String password = "select password from passwordDatabase where password ='" + pass + "'";
-
-        if (passwords.signin(username, pass)){ 
+        if (passwords.signin(username, pass))
+        { 
             System.out.println("You have successfully entered the Student Panel");
             System.out.println("Welcome " + username + "!");
             System.out.println("\n 1. View Schedule \n 2. View Available Courses \n 3. Register For Courses");
             System.out.println(" 4. Track Academic Progress \n 5. Drop Courses \n 6. Submit Complaints \n 7. Exit \n 8. Logout");
 
             int funcChoice = sc.nextInt();
-            while(funcChoice < 1 || funcChoice > 8) {
+            while(funcChoice < 1 || funcChoice > 8)
+            {
             	System.out.println("Invalid choice try again");
                 System.out.println("\n 1. View Schedule \n 2. View Available Courses \n 3. Register For Courses");
                 System.out.println(" 4. Track Academic Progress \n 5. Drop Courses \n 6. Submit Complaints \n 7. Exit \n 8. Logout");
             	int temp_choice = sc.nextInt();
             	funcChoice = temp_choice;
             }
-            switch (funcChoice) {
+            switch (funcChoice) 
+            {
                 case 1:
-                    viewSchedule(username);
+                    viewSchedule(sc);
                     break;
                 case 2:
                     viewAvailableCourses(username);
@@ -50,10 +44,10 @@ public class student extends DBConnect{
                     trackAcademicProgress(username);
                     break;
                 case 5:
-                    dropCourses(username);
+                    dropCourses(username,sc);
                     break;
                 case 6:
-                    submitComplaints(username);
+                    submitComplaints(username,sc);
                     break;
                 case 7:
                     System.out.println("Have a nice day! You have successfully exited the program.");
@@ -63,7 +57,9 @@ public class student extends DBConnect{
                 	Main.main(null);
                 	break;
             }
-        } else {
+        }
+        else
+        {
             while (true) 
             {
                 System.out.println("Invalid login! Do you want to try again? (Y/N)");
@@ -71,21 +67,25 @@ public class student extends DBConnect{
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    StudentLogin();
+                    StudentLogin(sc);
                     return;
-                } else if (retryChoice.equalsIgnoreCase("N")) {
+                }
+                else if (retryChoice.equalsIgnoreCase("N"))
+                {
                     System.out.println("1. Main page \n 2. Exit");
                     int choice = sc.nextInt();
                     if (choice == 1) 
                     {
                     	Main.main(null);
-                    } else if (choice == 2)
+                    }
+                    else if (choice == 2)
                     {
                         System.out.println("Exiting... Goodbye!");
                         System.exit(0);
                     }
                     return;
-                } else 
+                }
+                else 
                 {
                     System.out.println("Invalid choice! Please enter Y or N.");
                 }
@@ -104,12 +104,18 @@ public class student extends DBConnect{
     {
 
     	
-    	StudentDB(username,2);
+    	DBviewAvailableCourses(username);
     }
 
     public static void registerCourses(String username) 
     {
-    	StudentDB(username,3);
+        System.out.println("Registering for courses...");
+    }
+
+    public static void viewSchedule(String username) 
+    {
+    	
+    	DBviewSchedule(username);
     }
 
    
@@ -120,20 +126,26 @@ public class student extends DBConnect{
     }
 
     public static void dropCourses(String username) 
-    {	
-    	StudentDB(username,5);
-    }
-
-    public static void submitComplaints(String username) 
     {
-    	StudentDB(username,6);
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the Course ID you want to Drop: ");
+    	int CourseID = sc.nextInt();
+    	
+        DBdropCourses(username,CourseID);
+    }
+    public static void submitComplaints(String username,Scanner sc) 
+    {
+    	System.out.println("Enter your complaint description!");
+    	Scanner sc = new Scanner(System.in);
+    	String complaintDescription = sc.nextLine();
+    	DBsubmitComplaints(username,complaintDescription);
     }
     
     
-    public static void main(String[] args) 
-    {
-    	StudentLogin();
-		
-	}
-    
+//    public static void main(String[] args) 
+//    {
+//    	StudentLogin();
+//		
+//	}
+//    
 }
