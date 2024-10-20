@@ -3,7 +3,6 @@ import java.util.Scanner;
 import StudentPackage.student;
 import adminPackage.admin;
 import ProfessorPackage.professor;
-import passwordPackage.passwords;
 import java.lang.InterruptedException;
 
 public class Main

@@ -60,7 +60,7 @@ public class professor
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    ProfessorLogin();
+                    ProfessorLogin(sc);
                     return;
                 } else if (retryChoice.equalsIgnoreCase("N")) {
                     System.out.println(" 1. Main page \n 2. Exit");
@@ -89,12 +89,10 @@ public class professor
 		System.out.println("manage couses ....");
 		
 	}
-	
 	 public static void viewSchedule() 
 	    {
 	        System.out.println("Displaying schedule...");
 	    }
-
 	public static void viewEnrolledStudents() 
 	{
 		System.out.println("enrolledstudent ....");

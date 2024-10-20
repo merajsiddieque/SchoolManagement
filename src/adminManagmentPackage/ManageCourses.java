@@ -3,6 +3,7 @@ package adminManagmentPackage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -10,23 +11,26 @@ import java.sql.Timestamp;
 import java.util.Scanner;
 //delete courses and 
 import Interface.view_courses;
-
+//view courses is also not completed
 public class ManageCourses implements view_courses{
-	private final String url = "jdbc:mysql://localhost:3306/ums";
-	private final String userName = "root";
-	private final String password = "a!am";
     public void view_course() 
     {
 		Connection conn = null;
 			try 
 			{
-				conn = DriverManager.getConnection(url,userName,password);
+				conn = DriverManager.getConnection(ConnDs.url,ConnDs.userName,ConnDs.password);
 				String query = "SELECT * FROM Courses;";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
+				System.out.println("CourseID CourseCode Semester ProfessorID Credits  Prerequisites Timings Title");
 				while(rs.next())
 				{
-			        
+			        for (int i = 1; i <= 8; i++)
+			        {
+			        	Object value = rs.getObject(i);
+			        	System.out.print(value + "\t");
+			        }
+			        System.out.println();
 				}
 			}
 			catch(SQLException ex)
@@ -53,12 +57,17 @@ public class ManageCourses implements view_courses{
     //delete_course is not fullfilled still input errors
     public void delete_course(Scanner Sc)
     {
+    	
     	Connection conn = null;
     		try 
     		{
-    		    conn = DriverManager.getConnection(url, userName, password);
+    		    conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
     		    String query = "DELETE FROM Courses WHERE CourseID = ?;";
-    		    //What should be the input for the delete courses like course_id or 
+    		    //What should be the input for the delete courses like course_id or
+    		    view_course();
+    		    System.out.println("Select The Course ID Which You Want To Delete");
+    		    int course_id = Sc.nextInt();
+    		    System.out.println("Successfully Deleted The Course");
     		}
     		catch(SQLException ex)
     		{
@@ -86,12 +95,10 @@ public class ManageCourses implements view_courses{
     {
     	Connection conn = null;
             try {
-                conn = DriverManager.getConnection(url, userName, password);
-
+                conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
                 // SQL query with placeholders for dynamic values
                 String sql = "INSERT INTO Courses (CourseID, CourseCode, Title, ProfessorID, Credits, Prerequisites, Timings, "
                            + "EnrollmentLimit, Syllabus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
                 // Prepare the statement
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 System.out.println("Enter Course ID: ");

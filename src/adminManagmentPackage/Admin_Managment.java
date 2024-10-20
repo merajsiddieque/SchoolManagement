@@ -55,9 +55,11 @@ public class Admin_Managment
         		break;
         	case 2:
         		//Assign Professors
+        		AssignProfessors.Assign_Professors(Sc);
         		break;
         	case 3:
         		//Update student Records
+        		UpdateStudentRecords.UpdateStuReco(Sc);
         		break;
         	case 4:
         		//Go back

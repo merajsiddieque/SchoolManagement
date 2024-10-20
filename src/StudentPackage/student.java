@@ -103,8 +103,6 @@ public class student extends DBConnect{
 
     public static void viewSchedule() 
     {
-    	Scanner sc = new Scanner(System.in);
-    	
     	System.out.println("Enter Student ID");
     	String StdID = sc.nextLine();
     	DBviewSchedule(StdID);
