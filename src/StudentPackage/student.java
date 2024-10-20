@@ -1,10 +1,11 @@
 package StudentPackage;
-import passwordPackage.passwords;
-import java.util.Scanner;
-
 import MainPackage.Main;
+import SqlDB.DBConnect;
+import java.util.Scanner;
 import passwordPackage.passwords;
-public class student {
+
+public class student extends DBConnect{
+
     public static void StudentLogin(Scanner sc) 
     {
         String username, pass;
@@ -68,7 +69,7 @@ public class student {
 
                 if (retryChoice.equalsIgnoreCase("Y")) 
                 {
-                    StudentLogin();
+                    StudentLogin(sc);
                     return;
                 } else if (retryChoice.equalsIgnoreCase("N")) {
                     System.out.println("1. Main page \n 2. Exit");
@@ -102,10 +103,15 @@ public class student {
 
     public static void viewSchedule() 
     {
-        System.out.println("Displaying schedule...");
+    	Scanner sc = new Scanner(System.in);
+    	
+    	System.out.println("Enter Student ID");
+    	String StdID = sc.nextLine();
+    	DBviewSchedule(StdID);
     }
 
-    public static void trackAcademicProgress() 
+
+	public static void trackAcademicProgress() 
     {
         System.out.println("Tracking academic progress...");
     }
@@ -119,5 +125,4 @@ public class student {
     {
         System.out.println("Submitting complaints...");
     }
-    
 }
