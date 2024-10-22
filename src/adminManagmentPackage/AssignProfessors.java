@@ -44,7 +44,7 @@ public class AssignProfessors {
 		   {
 			   Object ID = prrs.getObject(1);
 			   Object Name = prrs.getObject(2);
-			   System.out.println(ID + "\t" + Name);
+			   System.out.println(ID + "\t\t" + Name);
 		   }
 		   int proffId = Sc.nextInt();
 		   pstmt.setInt(2,courseId);

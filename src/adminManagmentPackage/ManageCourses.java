@@ -93,6 +93,10 @@ public class ManageCourses implements view_courses{
     		    view_course();
     		    System.out.println("Select The Course ID Which You Want To Delete");
     		    int course_id = Sc.nextInt();
+    		    Sc.nextLine();
+    		    PreparedStatement pstmtdel = conn.prepareStatement(query);
+    		    pstmtdel.setInt(1, course_id);
+    		    pstmtdel.executeUpdate();
     		    System.out.println("Successfully Deleted The Course");
     		}
     		catch(SQLException ex)
@@ -122,10 +126,8 @@ public class ManageCourses implements view_courses{
     	Connection conn = null;
             try {
                 conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
-                // SQL query with placeholders for dynamic values
-                String sql = "INSERT INTO Courses (CourseID, CourseCode, Title, ProfessorID, Credits, Prerequisites, Timings, "
-                           + "EnrollmentLimit, Syllabus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                // Prepare the statement
+                String sql = "INSERT INTO Courses (CourseID, CourseCode, Title, ProfessorID, Credits, Prerequisites, Timings "
+                           + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 System.out.println("Enter Course ID: ");
                 int courseId = Sc.nextInt();
@@ -165,8 +167,7 @@ public class ManageCourses implements view_courses{
                 }
                if(bool)
                {
-            	   Sc.nextLine();  // Consume newline
-
+//            	   Sc.nextLine();  // Consume newline
             	   System.out.println("Enter Course Code: ");
             	   String courseCode = Sc.nextLine();
 
@@ -185,24 +186,16 @@ public class ManageCourses implements view_courses{
             	   System.out.println("Enter Prerequisites: ");
             	   String prerequisites = Sc.nextLine();
 
-            	   System.out.println("Enter Timings (format: 'yyyy-[m]m-[d]d hh:mm:ss'): ");
+            	   System.out.println("Enter Timings (format: 'Day hh:mm'): ");
             	   String timingInput = Sc.nextLine();
-            	   Timestamp timings = null;
-                try 
-                {
-                    timings = Timestamp.valueOf(timingInput);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid timestamp format.");
-                    return;
-                }
-
-                System.out.println("Enter Enrollment Limit: ");
-                int enrollmentLimit = Sc.nextInt();
-                Sc.nextLine();  // Consume newline
-
-                System.out.println("Enter Course Syllabus: ");
-                String syllabus = Sc.nextLine();
-
+//            	   Timestamp timings = null;
+//                try 
+//                {
+//                    timings = Timestamp.valueOf(timingInput);
+//                } catch (IllegalArgumentException e) {
+//                    System.out.println("Invalid timestamp format.");
+//                    return;
+//                }
                 // Set the values to the PreparedStatement using the index of the placeholders
                 pstmt.setInt(1, courseId);
                 pstmt.setString(2, courseCode);
@@ -215,10 +208,7 @@ public class ManageCourses implements view_courses{
                 }
                 pstmt.setInt(5, credits);
                 pstmt.setString(6, prerequisites);
-                pstmt.setTimestamp(7, timings);
-                pstmt.setInt(8, enrollmentLimit);
-                pstmt.setString(9, syllabus);
-
+                pstmt.setString(7, timingInput);
                 // Execute the statement
                 int rowsAffected = pstmt.executeUpdate();
                 System.out.println("Insert successful. Rows affected: " + rowsAffected);

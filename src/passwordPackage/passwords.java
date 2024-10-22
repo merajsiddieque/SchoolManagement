@@ -32,7 +32,6 @@ public class passwords {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) { // Append mode
             String hashValue = sha256(pass);
             writer.write(String.format("\"%s\" : \"%s\"", username, hashValue));
-//            writer.write("nigaa");
             writer.newLine();
             writer.flush();
             System.out.println("Successfully updated to the system");
@@ -58,9 +57,11 @@ public class passwords {
         if (passes.containsKey(username) && passes.get(username).equals(hash)) {
             System.out.println("The login is successful");
             return true; 
-        } else {
+        } 
+        else 
+        {
             System.out.println("The login fails");
-            return false; // 
+            return false;
         }
     }
     //hashing

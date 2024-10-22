@@ -9,7 +9,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-
 import Exceptional_Handling.ExceedCreditLimit;
 public class DBConnect 
 {
@@ -49,6 +48,7 @@ public class DBConnect
 	                for (int i = 1; i <= columnCount; i++) {
 	                    System.out.printf("|    "+"%-20s", rs.getObject(i));
 	                }
+//	                System.out.print("|");
 	                System.out.println();
 	            }
 
@@ -59,10 +59,10 @@ public class DBConnect
                 break;
             case 2:
 			//courseview
-            	String query1 = "SELECT CourseID, CourseCode, ProfessorID, Credits, Prerequisites, Timings, Title FROM Courses WHERE Semester = (SELECT CurrentSemester FROM Students WHERE StudentID = ?)";
+            	String query1 = "SELECT CourseID, CourseCode, ProfessorID, Credits, Prerequisites, Timings, Title FROM Courses WHERE Semester = (SELECT CurrentSemester FROM Students WHERE StudentID = ?)AND CourseID IN (SELECT CourseID FROM Enrollments WHERE StudentID = ?)";
 				PreparedStatement pstm1 = conn.prepareStatement(query1);
 				pstm1.setString(1, username);
-				
+				pstm1.setString(2, username);
 				ResultSet rs1 = pstm1.executeQuery();
 //				System.out.println("   CourseID \t CourseCode \t ProfessorID \t Credits \t Prerequisites \t    Timings \t\t\t Title\n");
 //				while(rs1.next())
@@ -404,13 +404,34 @@ public class DBConnect
 	            	else if(updating==2)
 	            	{
 	            		sc.nextLine();
+	    				String query1 = "SELECT S.StudentID, S.Name FROM Enrollments E JOIN Students S ON E.StudentID = S.StudentID WHERE E.CourseID = ?";
+	    				PreparedStatement pstm1 = conn.prepareStatement(query1);
+	    				pstm1.setInt(1, CourseID1);
+	    				
+	    				ResultSet rs1 = pstm1.executeQuery();
+	    				ResultSetMetaData rsmd1 = rs1.getMetaData();
+	    	            int columnCount1 = rsmd1.getColumnCount();
+	    				   System.out.println("----------------------------------------------------");
+	    		            for (int i = 1; i <= columnCount1; i++) {
+	    		                System.out.printf("|    "+"%-20s", rsmd1.getColumnName(i));  // Adjust width based on column size
+	    		            }
+	    		            System.out.println();
+	    					   System.out.println("----------------------------------------------------");
+
+	    		            // Print rows
+	    		            while (rs1.next()) {
+	    		                for (int i = 1; i <= columnCount1; i++) {
+	    		                    System.out.printf("|    "+"%-20s", rs1.getObject(i));
+	    		                }
+	    		                System.out.println();
+	    		            }
+
+	    					   System.out.println("----------------------------------------------------");
 	            		System.out.println("Enter Student ID");
 			       		 String StudentID = sc.nextLine();
-			       		 
 	            		System.out.println("Enter New Grade");
 			       		 String grade= sc.nextLine();
-		       		
-		       		 
+			       		 
 					String query2 = "UPDATE Enrollments e JOIN Courses c ON e.CourseID = c.CourseID SET e.grade = ? WHERE c.CourseID = ? AND c.ProfessorID = ? AND e.StudentID = ?";
 					PreparedStatement pstm2 = conn.prepareStatement(query2);
 					

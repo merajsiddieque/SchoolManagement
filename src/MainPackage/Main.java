@@ -2,8 +2,9 @@ package MainPackage;
 import ProfessorPackage.professor;
 import StudentPackage.student;
 import adminPackage.admin;
+import passwordPackage.passwords;
+
 import java.util.Scanner;
-//we have to handle the redudancy inside the professor like many tuples are equal inside the professors
 public class Main
 {
 public static void main(String[] args){
@@ -33,7 +34,7 @@ public static void main(String[] args){
 	   	}
 	   switch(p) {
 	   		case 1:
-	   			
+	   		
 	   			admin adminstrator = new admin();
 	   			sc.nextLine();
 	   			adminstrator.login_method(sc);
