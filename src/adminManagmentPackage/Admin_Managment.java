@@ -24,6 +24,7 @@ public class Admin_Managment
         		System.out.println("1)View Course \n2)Delete Course \n3)Add Courses \n4)Go Back \n5)Log Out \n6)Exit");
         		choice_Mc = Sc.nextInt();
         		while(choice_Mc < 1 || choice_Mc > 6) {
+        			System.out.println("Invalid choice Try again !");
         			System.out.println("1)View Course \n2)Delete Course \n3)Add Courses \n4)Go Back \\n5)Log Out \\n6)Exit");
         			int choice_Mc_temp = Sc.nextInt();
         			choice_Mc = choice_Mc_temp;

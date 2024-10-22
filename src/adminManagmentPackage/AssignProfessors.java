@@ -17,6 +17,7 @@ public class AssignProfessors {
 	   {
 		   conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
 		   System.out.println("Showing All The Courses Without Assigned Professor");
+		   System.out.println("CourseID   CourseCode   Semester    Title      ProfessorID      Credits    Prerequisites     Timings");
 		   String query = "SELECT * FROM Courses WHERE ProfessorID IS NULL;";
 		   Statement stmt = conn.createStatement();
 		   ResultSet rs = stmt.executeQuery(query);
@@ -25,11 +26,11 @@ public class AssignProfessors {
 		        for (int i = 1; i <= 8; i++)
 		        {
 		        	Object value = rs.getObject(i);
-		        	System.out.print(value  + "\t");
+		        	System.out.print(value  + "\t    ");
 		        }
 		        System.out.println();
 		   }
-		   System.out.println("Select The Course For Which You Want To Assign The Professor");
+		   System.out.println("Select The CourseID For Which You Want To Assign The Professor");
 		   int courseId = Sc.nextInt();
 		   Sc.nextLine();
 		   //updating the 
@@ -46,8 +47,8 @@ public class AssignProfessors {
 			   System.out.println(ID + "\t" + Name);
 		   }
 		   int proffId = Sc.nextInt();
-		   pstmt.setInt(1,courseId);
-		   pstmt.setInt(2, proffId);
+		   pstmt.setInt(2,courseId);
+		   pstmt.setInt(1, proffId);
 		   int rows = pstmt.executeUpdate();
 		   if(rows > 0)
 		   {

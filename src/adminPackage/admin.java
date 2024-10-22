@@ -6,12 +6,12 @@ import passwordPackage.passwords;
 import Interface.login;
 public class admin implements login{
    public  void login_method(Scanner Sc){
-	   System.out.println("Login panel - Admin");
-	   System.out.println("1)Login \n2)ResetPassword \n3)GoBack \n4)Exit");
+	   System.out.println("Login panel :- Admin");
+	   System.out.println("1)Login. \n2)Reset Password. \n3)Go Back. \n4)Exit.");
 	   int choice_main = Sc.nextInt();
 	   while(choice_main < 1 || choice_main > 4) {
 		   System.out.println("Invalid choice Try again !");
-		   System.out.println("1)Login \n2)ResetPassword \n3)GoBack \n4)Exit");
+		   System.out.println("1)Login. \n2)Reset Password. \n3)Go Back. \n4)Exit.");
 		   int p = Sc.nextInt();
 		   choice_main = p;
 	   }
@@ -56,7 +56,7 @@ public class admin implements login{
 				   }
 				   else
 				   {
-					   System.out.println("Invalid choice ! choose again");
+					   System.out.println("Invalid choice ! Exiting..");
 				   }
 			   }
 		   }

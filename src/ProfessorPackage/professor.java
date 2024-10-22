@@ -7,21 +7,27 @@ import passwordPackage.passwords;
 import Interface.login;
 
 public class professor extends DBConnect implements login
-{
+{   
+	String username,pass;
 	public void login_method(Scanner sc) 
     {
-        String username, pass;
-//        sc.nextLine();
+        String username_method,pass_method;
         System.out.println("Enter your username:");
-        username = sc.nextLine();
+        username_method = sc.nextLine();
         System.out.println("Enter your password:");
-        pass = sc.nextLine();
-
-//        String password = "select password from passwordDatabase where password ="+ pass;
-
-        if (passwords.signin(username, pass)) { 
-            System.out.println("You have successfully entered the Student Panel");
+        pass_method = sc.nextLine();
+        set_username(username_method);
+        set_pass(pass_method);
+        if (passwords.signin("proff" + username_method,pass_method)) { 
+            System.out.println("You have successfully entered the Professor Panel");
             System.out.println("Welcome " + username + "!");
+            int professorId = 0;
+            for(int i = 2;i<username.length();i++)
+            {
+            	professorId = professorId*10 + (username.charAt(i)-'0');
+            }
+            while(true)
+            {
             System.out.println(" 1. View Schedule \n 2. Manage Courses \n 3. View Enrolled Students \n 4. Exit \n 5. Logout");
 
             int funcChoice = sc.nextInt();
@@ -35,13 +41,13 @@ public class professor extends DBConnect implements login
 
             switch (funcChoice) {
                 case 1:
-                	viewSchedule();
+                	viewSchedule(get_username(),sc,professorId);
                     break;
                 case 2:
-                	manageCourses();
+                	manageCourses(get_username(),sc,professorId);
                 	break;
                 case 3:
-                	viewEnrolledStudents();
+                	viewEnrolledStudents(get_username(),sc,professorId);
                     break;
                 case 4:
                     System.out.println("Have a nice day! You have successfully exited the program.");
@@ -51,6 +57,7 @@ public class professor extends DBConnect implements login
                 	Main.main(null);
                 	break;
             }
+        }
         }
         else
         {
@@ -82,17 +89,33 @@ public class professor extends DBConnect implements login
             }
          }
     }
-	public static void manageCourses() 
+	public static void viewSchedule(String Username,Scanner sc,int p) 
 	{
-		System.out.println("manage couses ....");	
+		professorDB(Username,1,sc,p);
 	}
-	public static void viewSchedule() 
+	public static void manageCourses(String Username,Scanner sc,int p) 
 	{
-	        System.out.println("Displaying schedule...");
+		professorDB(Username,2,sc,p);
 	}
-	public static void viewEnrolledStudents() 
+	
+	public static void viewEnrolledStudents(String Username,Scanner sc,int p) 
 	{
-		System.out.println("enrolledstudent ....");
-		
+		professorDB(Username,3,sc,p);
+	}
+	public void set_username(String username) 
+	{
+		this.username = username;
+	}
+	public String get_username() 
+	{
+		return username;
+	}
+	public void set_pass(String pass) 
+	{
+		this.pass = pass;
+	}
+	public String get_pass() 
+	{
+		return pass;
 	}
 }

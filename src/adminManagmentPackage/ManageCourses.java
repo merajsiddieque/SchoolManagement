@@ -1,14 +1,18 @@
 //sql queries for view and add and delete
+//
 package adminManagmentPackage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import Exceptional_Handling.InvalidCoursIdException;
 //delete courses and 
 import Interface.view_courses;
 //view courses is also not completed
@@ -22,31 +26,38 @@ public class ManageCourses implements view_courses{
 				String query = "SELECT CourseID,CourseCode,Semester,ProfessorID,Credits,Prerequisites,Timings,Title FROM Courses;";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				System.out.println("     CourseID \t      CourseCode     Semester \t  ProfessorID        Credits          Prerequisites \tTimings   \t\t  \t Title\n");
-				while(rs.next())
-				{
-			        for (int i = 1; i <= 8; i++)
-			        {
-			        	Object value = rs.getObject(i);
-			        	System.out.print("\t"+value + "\t");
-			        }
-			        
-			        System.out.println();
-				}
-				try {
-					if(rs != null)
-					{
-						rs.close();
-					}
-					if(stmt != null)
-					{
-						stmt.close();
-					}
-				}
-				catch(SQLException ex)
-				{
-					ex.printStackTrace();
-				}
+//				System.out.println("CourseID CourseCode Semester ProfessorID Credits  Prerequisites Timings Title");
+//				while(rs.next())
+//				{
+//			        for (int i = 1; i <= 8; i++)
+//			        {
+//			        	Object value = rs.getObject(i);
+//			        	System.out.print(value + "\t");
+//			        }
+//			        System.out.println();
+//				}
+				ResultSetMetaData rsmd = rs.getMetaData();
+	            int columnCount = rsmd.getColumnCount();
+
+				
+				   System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		            for (int i = 1; i <= columnCount; i++) {
+		                System.out.printf("|    "+"%-20s", rsmd.getColumnName(i));  // Adjust width based on column size
+		            }
+		            System.out.println();
+		            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+		            // Print rows
+		            while (rs.next()) {
+		                for (int i = 1; i <= columnCount; i++) {
+		                    System.out.printf("|    "+"%-20s", rs.getObject(i));
+		                }
+		                System.out.println();
+		            }
+
+		            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            
+				
 			}
 			catch(SQLException ex)
 			{
@@ -82,18 +93,7 @@ public class ManageCourses implements view_courses{
     		    view_course();
     		    System.out.println("Select The Course ID Which You Want To Delete");
     		    int course_id = Sc.nextInt();
-    		    PreparedStatement pstmt = conn.prepareStatement(query);
-    		    pstmt.setInt(1,course_id);
-    		    int rows = pstmt.executeUpdate();
-    		    if(rows > 0)
-    		    {
-    		    	System.out.println("Successfully Deleted The Course");
-    		    }
-    		    else
-    		    {
-    		    	System.out.println("The operation was not successful");
-    		    }
-    		    pstmt.close();
+    		    System.out.println("Successfully Deleted The Course");
     		}
     		catch(SQLException ex)
     		{
@@ -115,86 +115,115 @@ public class ManageCourses implements view_courses{
 					ex.printStackTrace();
 				}
     		}
-    }   
+    }
+    //Need to check about the Timings like using date or day name check that things    
     public void add_course(Scanner Sc)
     {
     	Connection conn = null;
             try {
-            	conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
-
-                // SQL query to insert a course
-                String sql = "INSERT INTO Courses (CourseID, CourseCode, Title, ProfessorID, Credits, Prerequisites, Timings) "
-                           + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                conn = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
+                // SQL query with placeholders for dynamic values
+                String sql = "INSERT INTO Courses (CourseID, CourseCode, Title, ProfessorID, Credits, Prerequisites, Timings, "
+                           + "EnrollmentLimit, Syllabus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 // Prepare the statement
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 System.out.println("Enter Course ID: ");
                 int courseId = Sc.nextInt();
-                Sc.nextLine();  // Consume newline
-
-                System.out.println("Enter Course Code: ");
-                String courseCode = Sc.nextLine();
-
-                System.out.println("Enter Course Title: ");
-                String title = Sc.nextLine();
-
-                System.out.println("Enter Professor ID (or 0 for NULL): ");
-                int professorId = Sc.nextInt();
                 Sc.nextLine();
-                Integer profId = professorId == 0 ? null : professorId;  // Handle NULL case
-
-                System.out.println("Enter Course Credits: ");
-                int credits = Sc.nextInt();
-                Sc.nextLine();
-
-                System.out.println("Enter Prerequisites (or leave blank for NULL): ");
-                String prerequisites = Sc.nextLine();
-                String prereq = prerequisites.trim().isEmpty() ? null : prerequisites;  // Handle NULL for Prerequisites
-
-                System.out.println("Enter Timings (format: 'yyyy-[m]m-[d]d hh:mm'): ");
-                String timingInput = Sc.nextLine();
-
-                // Parse date and time without seconds
-                Timestamp timings = null;
-                String dayAndTime = null;  // String to store day and time (hh:mm) format
-
+                boolean bool = true;
                 try {
-                    // Convert input to timestamp
-                    timings = Timestamp.valueOf(timingInput + ":00");  // Adding ":00" for seconds
+                	String query = "select * from Courses where CourseID = ?";
+                	PreparedStatement pstmtin = conn.prepareStatement(query);
+                	pstmtin.setInt(1, courseId);
+                	ResultSet rs3 = pstmtin.executeQuery();
+                	int cnt = 0;
+                	while(rs3.next())
+                	{
+                		cnt++;
+                	}
+                	pstmtin.close();
+                	if(cnt == 1)
+                	{
+                		bool = false;
+                		throw new InvalidCoursIdException(courseId);
+                	}
+                }
+                catch(InvalidCoursIdException ex)
+                {
+                	System.out.println(ex);
+                	System.out.println("Do you Want To Try Again ! Y / N");
+                	String yesorNo = Sc.nextLine();
+                	if(yesorNo.equalsIgnoreCase("Y"))
+                	{
+                	   	add_course(Sc);
+                	}
+                	else 
+                	{
+                		Admin_Managment.admin_manage(Sc);
+                	}
+                	conn.close();
+                }
+               if(bool)
+               {
+            	   Sc.nextLine();  // Consume newline
 
-                    // Format the date-time to get day name and hh:mm
-                    SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");  // Day name, e.g., Monday
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm"); // Time in hh:mm format
+            	   System.out.println("Enter Course Code: ");
+            	   String courseCode = Sc.nextLine();
 
-                    // Convert timestamp to date and format it
-                    java.util.Date date = new java.util.Date(timings.getTime());
-                    dayAndTime = dayFormat.format(date) + " " + timeFormat.format(date);  // Combine day name and time
-                    System.out.println("Day and Time: " + dayAndTime);
+            	   System.out.println("Enter Course Title: ");
+            	   String title = Sc.nextLine();
+
+            	   System.out.println("Enter Professor ID (or 0 for NULL): ");
+            	   int professorId = Sc.nextInt();
+            	   Sc.nextLine();  // Consume newline
+            	   Integer profId = professorId == 0 ? null : professorId;  // Handle NULL case
+
+            	   System.out.println("Enter Course Credits: ");
+            	   int credits = Sc.nextInt();
+            	   Sc.nextLine();  // Consume newline
+
+            	   System.out.println("Enter Prerequisites: ");
+            	   String prerequisites = Sc.nextLine();
+
+            	   System.out.println("Enter Timings (format: 'yyyy-[m]m-[d]d hh:mm:ss'): ");
+            	   String timingInput = Sc.nextLine();
+            	   Timestamp timings = null;
+                try 
+                {
+                    timings = Timestamp.valueOf(timingInput);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid timestamp format.");
                     return;
                 }
+
+                System.out.println("Enter Enrollment Limit: ");
+                int enrollmentLimit = Sc.nextInt();
+                Sc.nextLine();  // Consume newline
+
+                System.out.println("Enter Course Syllabus: ");
+                String syllabus = Sc.nextLine();
+
+                // Set the values to the PreparedStatement using the index of the placeholders
                 pstmt.setInt(1, courseId);
                 pstmt.setString(2, courseCode);
                 pstmt.setString(3, title);
 
                 if (profId == null) {
-                    pstmt.setNull(4, java.sql.Types.INTEGER);  // Set NULL for ProfessorID
+                    pstmt.setNull(4, java.sql.Types.INTEGER);  // Set NULL for professor ID
                 } else {
-                    pstmt.setInt(4, profId);  // Set ProfessorID
+                    pstmt.setInt(4, profId);  // Set professor ID
                 }
-
                 pstmt.setInt(5, credits);
+                pstmt.setString(6, prerequisites);
+                pstmt.setTimestamp(7, timings);
+                pstmt.setInt(8, enrollmentLimit);
+                pstmt.setString(9, syllabus);
 
-                if (prereq == null) {
-                    pstmt.setNull(6, java.sql.Types.VARCHAR);  // Set NULL for Prerequisites
-                } else {
-                    pstmt.setString(6, prereq);  // Set Prerequisites
-                }
-                pstmt.setString(7, dayAndTime);  // Set Timings (parsed with hh:mm precision)
+                // Execute the statement
                 int rowsAffected = pstmt.executeUpdate();
                 System.out.println("Insert successful. Rows affected: " + rowsAffected);
-                pstmt.close();
-                conn.close();
+               }
+
             } 
             catch(SQLException ex)
             {

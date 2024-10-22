@@ -2,24 +2,40 @@ package StudentPackage;
 import MainPackage.Main;
 import SqlDB.DBConnect;
 import java.util.Scanner;
-
 import Interface.login;
-import Interface.view_courses;
 import passwordPackage.passwords;
 
 public class student extends DBConnect implements login{
-    public  void login_method(Scanner sc) 
+	 private String username,pass;
+	public void set_username(String username) 
+	{
+		this.username = username;
+	}
+	public String get_username() 
+	{
+		return username;
+	}
+	public void set_pass(String pass) 
+	{
+		this.pass = pass;
+	}
+	public String get_pass() 
+	{
+		return pass;
+	}
+    public void login_method(Scanner sc) 
     {
-        String username, pass;
-
+        String username, pass; 
         System.out.println("Enter your username:");
         username = sc.nextLine();
         System.out.println("Enter your password:");
         pass = sc.nextLine();
-        if (passwords.signin(username, pass))
+        set_username(username);
+        set_pass(pass);
+        if (passwords.signin("STUDENT" + get_username(), get_pass()))
         { 
             System.out.println("You have successfully entered the Student Panel");
-            System.out.println("Welcome " + username + "!");
+            System.out.println("Welcome " + get_username() + "!");
            while(true) {
             System.out.println("\n 1. View Schedule \n 2. View Available Courses \n 3. Register For Courses");
             System.out.println(" 4. Track Academic Progress \n 5. Drop Courses \n 6. Submit Complaints \n 7. Exit \n 8. Logout");
@@ -36,22 +52,22 @@ public class student extends DBConnect implements login{
             switch (funcChoice) 
             {
                 case 1:
-                    viewSchedule(username,sc);
+                    viewSchedule(get_username(),sc);
                     break;
                 case 2:
-                    view_course(username,sc);
+                    view_course(get_username(),sc);
                     break;
                 case 3:
-                    registerCourses(username,sc);
+                    registerCourses(get_username(),sc);
                     break;
                 case 4:
-                    trackAcademicProgress(username,sc);
+                    trackAcademicProgress(get_username(),sc);
                     break;
                 case 5:
-                    dropCourses(username,sc);
+                    dropCourses(get_username(),sc);
                     break;
                 case 6:
-                    submitComplaints(username,sc);
+                    submitComplaints(get_username(),sc);
                     break;
                 case 7:
                     System.out.println("Have a nice day! You have successfully exited the program.");

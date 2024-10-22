@@ -3,6 +3,7 @@ import ProfessorPackage.professor;
 import StudentPackage.student;
 import adminPackage.admin;
 import java.util.Scanner;
+//we have to handle the redudancy inside the professor like many tuples are equal inside the professors
 public class Main
 {
 public static void main(String[] args){
@@ -10,9 +11,10 @@ public static void main(String[] args){
 	   System.out.println("Welcome to the portal ! continue as ");
 	   int p = -1;
 	   while(p == -1) 
-	   	{
-		   System.out.println(" 1)admin\n 2)professor\n 3)student\n 4)Exit");
-		   System.out.println("choose the role from above");
+	   	{  
+		   System.out.println("---SVNIT---");
+		   System.out.println("Choose the role from below-");
+		   System.out.println(" 1)Administrator.\n 2)Professor.\n 3)Student.\n 4)Exit.");
 		   int k = sc.nextInt();
 		   		if(k < 1 || k > 4)
 		   		{

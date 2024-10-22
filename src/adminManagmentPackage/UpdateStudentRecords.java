@@ -15,21 +15,25 @@ public class UpdateStudentRecords {
 	   {
 		   con = DriverManager.getConnection(ConnDs.url, ConnDs.userName, ConnDs.password);
 		   //query for viewing the table where the grades are not assigned
-		    String viewing = "SELECT S.StudentID, S.Name,E.Grade , C.Title FROM Enrollments E JOIN Courses C ON E.CourseID = C.CourseID JOIN Students S ON E.StudentID = S.StudentID "
-		    		+ "where E.Grade is null;";
+		    String viewing = "SELECT E.ENROLLMENTID, S.studentID, C.semester, C.Title FROM Enrollments E JOIN Courses C ON E.CourseID = \r\n"
+		    		+ "C.CourseID JOIN Students S ON E.StudentID = S.StudentID Where E.Grade is  NULL";
 		    Statement stmt = con.createStatement();
 		    ResultSet rs = stmt.executeQuery(viewing);
-		    System.out.println("StudentID" + "\t" + "Name" + "\t" + "Grade" + "\t" + "Title");
+		    System.out.println("E_ID" + "\t" + "S_Code" + "\t\t" + "Sem     " + "  " + "Title");
 		    	while(rs.next())
 		    	{
 		    		Object StudentId = rs.getObject(1),Name = rs.getObject(2),Grade = rs.getObject(3),Title = rs.getObject(4);
 		    		System.out.println(StudentId + "\t" + Name + "\t" + Grade + "\t" + Title);
 		    	}
-		    String Updating = " UPDATE Enrollments SET Grade = 'A' WHERE EnrollmentID = ?";
-		    System.out.println("Choose The Enrollment Id Which You want To Update");
+		    String Updating = " UPDATE Enrollments SET Grade = ? WHERE EnrollmentID = ?";
+		    System.out.println("Choose The E_Id Which You want To Update");
 		    int choice = Sc.nextInt();
+		    Sc.nextLine();
+		    System.out.println("Give Grade:");
+		    String grade = Sc.nextLine();
 		    PreparedStatement pstmt = con.prepareStatement(Updating);
-		    pstmt.setInt(1,choice);
+		    pstmt.setString(1,grade);
+		    pstmt.setInt(2,choice);
 		    int rowsAffected = pstmt.executeUpdate();
             	if (rowsAffected > 0)
             	{
